@@ -1,0 +1,94 @@
+﻿@{
+    ViewData["Title"] = "Quản lý Nhà cung cấp";
+}
+
+<section class="content-header">
+    <div class="container-fluid">
+        <h1><i class="fas fa-truck border-right pr-3 mr-3"></i>Quản lý Nhà cung cấp</h1>
+    </div>
+</section>
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="card card-secondary">
+            <div class="card-body">
+                <div class="input-group">
+                    <input type="text" id="keyword" class="form-control" placeholder="Tìm kiếm theo tên hoặc số điện thoại...">
+                    <div class="input-group-append">
+                        <button type="button" class="btn btn-primary" onclick="loadData()">
+                            <i class="fas fa-search"></i> Tìm kiếm
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card card-primary card-outline">
+            <div class="card-header">
+                <h3 class="card-title" id="formTitle">Thêm nhà cung cấp</h3>
+            </div>
+            <div class="card-body">
+                <input id="id" type="hidden" />
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>Tên nhà cung cấp <span class="text-danger">*</span></label>
+                            <input id="name" class="form-control" placeholder="VD: Công ty STTech" />
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>Số điện thoại</label>
+                            <input id="phone" type="number" class="form-control" placeholder="VD: 0912345xxx" />
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>Email <span class="text-danger">*</span></label>
+                            <input id="email" type="email" class="form-control" placeholder="VD: NCC@gmail.com" />
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>Địa chỉ</label>
+                            <input id="address" class="form-control" placeholder="VD: TP. Hồ Chí Minh" />
+                        </div>
+                    </div>
+                </div>
+                <div class="text-right">
+                    <button id="btnAdd" class="btn btn-primary px-4" onclick="create()">
+                        <i class="fas fa-plus-circle mr-1"></i> Thêm mới
+                    </button>
+
+                    <button id="btnUpdate" class="btn btn-info px-4" onclick="update()" disabled>
+                        <i class="fas fa-save mr-1"></i> Cập nhật
+                    </button>
+
+                    <button class="btn btn-default" onclick="resetForm()"><i class="fas fa-sync-alt"></i> Làm mới</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-body table-responsive p-0">
+                <table class="table table-hover table-bordered text-nowrap">
+                    <thead class="bg-light">
+                        <tr>
+                            <th>Tên nhà cung cấp</th>
+                            <th>Số điện thoại</th>
+                            <th>Email</th>
+                            <th>Địa chỉ</th>
+                            <th class="text-center" style="width: 150px">Thao tác</th>
+                        </tr>
+                    </thead>
+                    <tbody id="data">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    <script src="~/view-resources/Views/Suppliers/Index.js"></script>
+}
