@@ -1647,7 +1647,7 @@ namespace Project_QLNCC.Migrations
                     b.ToTable("AbpTenants");
                 });
 
-            modelBuilder.Entity("Project_QLNCC.Supplier.Supplier", b =>
+            modelBuilder.Entity("Project_QLNCC.Suppliers.Supplier", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -1658,9 +1658,22 @@ namespace Project_QLNCC.Migrations
                     b.Property<string>("Address")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("ContactPerson")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
                     b.Property<string>("Email")
+                        .IsRequired()
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -1668,6 +1681,10 @@ namespace Project_QLNCC.Migrations
                         .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("Phone")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("TaxCode")
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
 
