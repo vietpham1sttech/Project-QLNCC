@@ -16,11 +16,23 @@
         <!-- Bộ lọc tìm kiếm -->
         <div class="card card-secondary">
             <div class="card-body">
-                <div class="input-group">
-                    <input type="text" id="keyword" class="form-control" placeholder="Tìm theo Mã, Tên, Email, MST hoặc SĐT...">
-                    <div class="input-group-append">
-                        <button type="button" class="btn btn-primary" onclick="loadData()">
-                            <i class="fas fa-search"></i> Tìm kiếm
+                <div class="row">
+                    <div class="col-md-8">
+                        <input type="text" id="keyword" class="form-control"
+                               placeholder="Tìm theo Mã, Tên, Email, MST hoặc SĐT...">
+                    </div>
+
+                    <div class="col-md-2">
+                        <select id="filterIsActive" class="form-control">
+                            <option value="">Tất cả</option>
+                            <option value="true">Hoạt động</option>
+                            <option value="false">Ngừng hoạt động</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-2">
+                        <button type="button" class="btn btn-primary btn-block" onclick="loadData()">
+                            <i class="fas fa-search"></i> Tìm
                         </button>
                     </div>
                 </div>
@@ -87,7 +99,7 @@
                             <label>Trạng thái</label>
                             <select id="isActive" class="form-control">
                                 <option value="true">Đang hoạt động</option>
-                                <option value="false">Ngừng hợp tác</option>
+                                <option value="false">Ngừng hoạt động</option>
                             </select>
                         </div>
                     </div>
@@ -98,7 +110,7 @@
                     </button>
 
                     <button id="btnUpdate" class="btn btn-info px-4" onclick="update()" disabled>
-                        <i class="fas fa-save mr-1"></i> Cập nhật 
+                        <i class="fas fa-save mr-1"></i> Cập nhật
                     </button>
 
                     <button class="btn btn-default" onclick="resetForm()"><i class="fas fa-sync-alt"></i> Làm mới</button>
@@ -112,13 +124,13 @@
                 <table class="table table-hover table-bordered text-nowrap">
                     <thead class="bg-light text-center">
                         <tr>
-                            <th style="width: 100px">Mã NCC</th>    
-                            <th>Tên nhà cung cấp</th>              
-                            <th>MST</th>                          
-                            <th>Người liên hệ</th>                
-                            <th>Email & SĐT</th>                  
-                            <th style="width: 100px">Trạng thái</th> 
-                            <th style="width: 120px">Thao tác</th>   
+                            <th style="width: 100px">Mã NCC</th>
+                            <th>Tên nhà cung cấp</th>
+                            <th>MST</th>
+                            <th>Người liên hệ</th>
+                            <th>Email & SĐT</th>
+                            <th style="width: 100px">Trạng thái</th>
+                            <th style="width: 120px">Thao tác</th>
                         </tr>
                     </thead>
                     <tbody id="data">

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Abp.Application.Services.Dto;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,5 +10,6 @@ namespace Project_QLNCC.Suppliers.Dto
     public class SearchSupplierInput
     {
         public string Keyword { get; set; }
+        public bool? IsActive { get; set; }
     }
 }

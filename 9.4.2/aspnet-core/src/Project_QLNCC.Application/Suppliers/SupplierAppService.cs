@@ -36,9 +36,13 @@ namespace Project_QLNCC.Suppliers
                     x.Code.Contains(input.Keyword) ||
                     x.Name.Contains(input.Keyword) ||
                     x.Email.Contains(input.Keyword) ||
-                    (x.TaxCode != null && x.TaxCode.Contains(input.Keyword)) ||
-                    (x.Phone != null && x.Phone.Contains(input.Keyword))
+                   (x.TaxCode != null && x.TaxCode.Contains(input.Keyword)) ||
+                   (x.Phone != null && x.Phone.Contains(input.Keyword))
                 );
+            }
+            if (input.IsActive.HasValue)
+            {
+                query = query.Where(x => x.IsActive == input.IsActive);
             }
             return query;
         }

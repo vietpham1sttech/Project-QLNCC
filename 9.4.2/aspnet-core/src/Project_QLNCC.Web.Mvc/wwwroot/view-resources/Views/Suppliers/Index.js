@@ -3,19 +3,23 @@
 
     function loadData() {
         let keyword = document.getElementById("keyword").value;
+        let isActive = document.getElementById("filterIsActive").value;
         abp.ui.setBusy('#data');
 
         abp.ajax({
             url: baseUrl + "GetAll",
             type: 'GET',
-            data: { keyword: keyword }
+            data: {
+                keyword: keyword,
+                isActive: isActive === "" ? null : isActive === "true"
+            }
         }).done(function (res) {
             let html = "";
             if (res && res.items.length > 0) {
                 res.items.forEach(item => {
                     const statusBadge = item.isActive
                         ? '<span class="badge badge-success">Hoạt động</span>'
-                        : '<span class="badge badge-danger">Ngừng</span>';
+                        : '<span class="badge badge-danger">Ngừng hoạt động</span>';
 
                     html += `
                         <tr>
