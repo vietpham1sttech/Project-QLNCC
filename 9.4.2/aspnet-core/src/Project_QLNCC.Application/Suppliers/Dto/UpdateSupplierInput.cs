@@ -8,12 +8,12 @@ namespace Project_QLNCC.Suppliers.Dto
     [AutoMapTo(typeof(Supplier))]
     public class UpdateSupplierInput : EntityDto<int>
     {
-        [Required(ErrorMessage = "Mã nhà cung cấp là bắt buộc")]
-        [StringLength(20, ErrorMessage = "Mã quá dài")]
+        [Required]
+        [StringLength(20)]
         public string Code { get; set; }
 
-        [Required(ErrorMessage = "Tên nhà cung cấp là bắt buộc")]
-        [StringLength(50, ErrorMessage = "Tên quá dài")]
+        [Required]
+        [StringLength(50)]
         public string Name { get; set; }
 
         [StringLength(20)]
@@ -22,8 +22,8 @@ namespace Project_QLNCC.Suppliers.Dto
         [StringLength(20)]
         public string Phone { get; set; }
 
-        [Required(ErrorMessage = "Email không được để trống")]
-        [EmailAddress(ErrorMessage = "Email không hợp lệ")]
+        [Required]
+        [EmailAddress]
         [StringLength(200)]
         public string Email { get; set; }
 

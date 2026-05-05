@@ -11,5 +11,6 @@ namespace Project_QLNCC.Suppliers.Dto
     {
         public string Keyword { get; set; }
         public bool? IsActive { get; set; }
+        public string Address { get; set; }
     }
 }
