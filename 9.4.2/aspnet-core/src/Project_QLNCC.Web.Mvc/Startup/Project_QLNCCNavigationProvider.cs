@@ -57,7 +57,7 @@ namespace Project_QLNCC.Web.Startup
 
                  .AddItem(
                     new MenuItemDefinition(
-                        "Suppliers",
+                        PageNames.Suppliers,
                         L("Suppliers"),
                         url: "Suppliers",
                         icon: "fas fa-truck",

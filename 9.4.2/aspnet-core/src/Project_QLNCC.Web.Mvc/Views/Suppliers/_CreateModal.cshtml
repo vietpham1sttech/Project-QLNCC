@@ -1,0 +1,90 @@
+﻿@{
+    Layout = null;
+}
+
+<div class="modal fade" id="SupplierCreateModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title">Tạo Supplier</h5>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <form name="supplierCreateForm" class="form-horizontal">
+
+                <div class="modal-body">
+
+                    <div class="form-group row required">
+                        <label class="col-md-3 col-form-label">Mã NCC</label>
+                        <div class="col-md-9">
+                            <input type="text" name="Code" id="create-field-Code"
+                                   class="form-control" placeholder="Nhập mã Supplier (VD: NCC001)" />
+                            <span id="create-error-Code" class="text-danger" style="display:none; font-size:13px;">
+                                Trường này là bắt buộc.
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="form-group row required">
+                        <label class="col-md-3 col-form-label">Tên NCC</label>
+                        <div class="col-md-9">
+                            <input type="text" name="Name" id="create-field-Name"
+                                   class="form-control" placeholder="Nhập tên Supplier" />
+                            <span id="create-error-Name" class="text-danger" style="display:none; font-size:13px;">
+                                Trường này là bắt buộc.
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="form-group row required">
+                        <label class="col-md-3 col-form-label">Email</label>
+                        <div class="col-md-9">
+                            <input type="email" name="Email" id="create-field-Email"
+                                   class="form-control" placeholder="Nhập email (VD: example@gmail.com)" />
+                            <span id="create-error-Email" class="text-danger" style="display:none; font-size:13px;">
+                                Trường này là bắt buộc.
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label">SĐT</label>
+                        <div class="col-md-9">
+                            <input type="text" name="Phone" class="form-control" placeholder="Nhập số điện thoại" />
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label">Mã số thuế</label>
+                        <div class="col-md-9">
+                            <input type="text" name="TaxCode" class="form-control" placeholder="Nhập mã số thuế" />
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label">Địa chỉ</label>
+                        <div class="col-md-9">
+                            <input type="text" name="Address" class="form-control" placeholder="Nhập địa chỉ" />
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label">Trạng thái</label>
+                        <div class="col-md-9">
+                            <input type="checkbox" name="IsActive" value="true" checked />
+                            <span class="ml-1">Hoạt động</span>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                    <button type="button" class="btn btn-primary save-button">Lưu</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>

@@ -22,13 +22,15 @@ namespace Project_QLNCC.Suppliers
             code = code?.Trim().ToUpper();
             email = email?.Trim().ToLower();
             taxCode = taxCode?.Trim();
+            bool checkTaxCode = !string.IsNullOrWhiteSpace(taxCode);
 
             var existed = await _repository.GetAll()
                 .Where(x => !id.HasValue || x.Id != id.Value)
                 .FirstOrDefaultAsync(x =>
                     x.Code == code ||
                     x.Email == email ||
-                    x.TaxCode == taxCode
+                    (checkTaxCode && x.TaxCode == taxCode)
+
                 );
 
             if (existed != null)

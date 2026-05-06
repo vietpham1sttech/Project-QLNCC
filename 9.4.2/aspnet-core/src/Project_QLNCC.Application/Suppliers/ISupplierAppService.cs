@@ -1,4 +1,5 @@
 ﻿using Abp.Application.Services;
+using Abp.Application.Services.Dto;
 using Project_QLNCC.Suppliers.Dto;
 using System;
 using System.Collections.Generic;
@@ -10,5 +11,6 @@ namespace Project_QLNCC.Suppliers
 {
     public interface ISupplierAppService : IAsyncCrudAppService<SupplierDto, int, SearchSupplierInput, CreateSupplierInput, UpdateSupplierInput>
     {
+        Task<SupplierDto> Get(EntityDto<int> input);
     }
 }

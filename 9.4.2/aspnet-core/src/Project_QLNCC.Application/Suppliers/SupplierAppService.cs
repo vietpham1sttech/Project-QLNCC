@@ -53,24 +53,30 @@ namespace Project_QLNCC.Suppliers
             return query;
         }
 
-        // Hàm thêm mới nhà cung cấp
+        // Hàm thêm mới Supplier
         public override async Task<SupplierDto> CreateAsync(CreateSupplierInput input)
         {
             await _validator.Validate(input.Code, input.Email, input.TaxCode);
             return await base.CreateAsync(input);
         }
 
-        // Hàm cập nhật thông tin nhà cung cấp
+        // Hàm cập nhật thông tin Supplier
         public override async Task<SupplierDto> UpdateAsync(UpdateSupplierInput input)
         {
             await _validator.Validate(input.Code, input.Email, input.TaxCode, input.Id);
             return await base.UpdateAsync(input);
         }
 
-        // Hàm xoá nhà cung cấp
+        // Hàm xoá Supplier
         public override async Task DeleteAsync(EntityDto<int> input)
         {
             await base.DeleteAsync(input);
+        }
+
+        public async Task<SupplierDto> Get(EntityDto<int> input)
+        {
+            var supplier = await Repository.GetAsync(input.Id);
+            return ObjectMapper.Map<SupplierDto>(supplier);
         }
 
     }
