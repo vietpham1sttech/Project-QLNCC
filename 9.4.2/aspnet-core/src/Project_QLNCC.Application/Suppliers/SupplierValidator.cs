@@ -36,13 +36,13 @@ namespace Project_QLNCC.Suppliers
             if (existed != null)
             {
                 if (existed.Code == code)
-                    throw new UserFriendlyException("Dữ liệu không hợp lệ", $"Mã '{code}' đã tồn tại!");
+                    //throw new UserFriendlyException("Dữ liệu không hợp lệ", $"Id '{code}' đã tồn tại!");
 
                 if (existed.Email == email)
-                    throw new UserFriendlyException("Dữ liệu không hợp lệ", $"Email '{email}' đã tồn tại!");
+                    //throw new UserFriendlyException("Dữ liệu không hợp lệ", $"Email '{email}' đã tồn tại!");
 
                 if (existed.TaxCode == taxCode)
-                    throw new UserFriendlyException("Dữ liệu không hợp lệ", $"Mã số thuế '{taxCode}' đã tồn tại!");
+                    //throw new UserFriendlyException("Dữ liệu không hợp lệ", $"Id số thuế '{taxCode}' đã tồn tại!");
             }
         }
     }

@@ -1,82 +1,129 @@
-﻿(function () {
+﻿(function ($) {
+    // =========================
+    // KHAI BÁO BIẾN
+    // =========================
+    // Gọi AppService Supplier từ ABP
+    var _supplierService = abp.services.app.supplier,
+        l = abp.localization.getSource('Project_QLNCC'),
+        _$modal = $('#SupplierCreateModal'),
+        _$form = _$modal.find('form');
 
-    var _supplierService = abp.services.app.supplier;
-
-    function setCreateFieldError(fieldName, message) {
+    // =========================
+    // HIỂN THỊ LỖI CHO FIELD
+    // =========================
+    function setFieldError(fieldName, message) {
         var input = $('#create-field-' + fieldName);
         var errorSpan = $('#create-error-' + fieldName);
         if (message) {
-            input.css('border-color', '#dc3545');
+            input.addClass('is-invalid').css('border-color', '#dc3545');
             errorSpan.text(message).show();
         } else {
-            input.css('border-color', '');
+            input.removeClass('is-invalid').css('border-color', '');
             errorSpan.hide();
         }
     }
 
-    // Xóa lỗi khi gõ lại
-    $('#SupplierCreateModal').on('input', 'input[name=Code], input[name=Name], input[name=Email]', function () {
-        var name = $(this).attr('name');
-        setCreateFieldError(name, '');
-    });
-
-    // Reset khi đóng modal
-    $('#SupplierCreateModal').on('hidden.bs.modal', function () {
+    // =========================
+    // CLEAR TOÀN BỘ LỖI
+    // =========================
+    function clearErrors() {
         ['Code', 'Name', 'Email'].forEach(function (f) {
-            setCreateFieldError(f, '');
+            setFieldError(f, '');
         });
-        $('#SupplierCreateModal').find('form')[0].reset();
-    });
+    }
 
-    $('#SupplierCreateModal').on('click', '.save-button', function () {
-
-        // ĐỌC THẲNG TỪ DOM thay vì serializeFormToObject
-        var code = $.trim($('#create-field-Code').val());
-        var name = $.trim($('#create-field-Name').val());
-        var email = $.trim($('#create-field-Email').val());
-
-        // Reset lỗi cũ
-        ['Code', 'Name', 'Email'].forEach(function (f) {
-            setCreateFieldError(f, '');
-        });
-
+    // =========================
+    // VALIDATE FORM
+    // =========================
+    function validate(data) {
         var hasError = false;
 
-        if (!code) {
-            setCreateFieldError('Code', 'Mã Supplier không được để trống.');
+        if (!data.Code || !data.Code.trim()) {
+            setFieldError('Code', 'Id Supplier required.');
             hasError = true;
         }
-        if (!name) {
-            setCreateFieldError('Name', 'Tên Supplier không được để trống.');
+        if (!data.Name || !data.Name.trim()) {
+            setFieldError('Name', 'Name Supplier required.');
             hasError = true;
         }
-        if (!email) {
-            setCreateFieldError('Email', 'Email không được để trống.');
+        if (!data.Email || !data.Email.trim()) {
+            setFieldError('Email', 'Email required.');
+            hasError = true;
+        } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.Email)) {
+            setFieldError('Email', 'Email format invalid. Example: example@gmail.com');
             hasError = true;
         }
 
-        if (hasError) return; // dừng, không gọi API
+        return !hasError;
+    }
 
-        // Lấy toàn bộ data để gửi lên server
-        var form = $('#SupplierCreateModal').find('form[name=supplierCreateForm]');
-        var data = form.serializeFormToObject();
-        data.IsActive = $('#SupplierCreateModal input[name=IsActive]').is(':checked');
+    // =========================
+    // HÀM SAVE
+    // =========================
+    function save() {
+        var data = _$form.serializeFormToObject();
+        data.IsActive = _$modal.find('input[name=IsActive]').is(':checked');
 
+        clearErrors();
+
+        if (!validate(data)) {
+            return;
+        }
+
+        abp.ui.setBusy(_$modal);
         _supplierService.create(data).done(function () {
-            abp.notify.success("Thêm thành công");
-            $('#SupplierCreateModal').modal('hide');
-            $('#SuppliersTable').DataTable().ajax.reload();
+            _$modal.modal('hide');
+            _$form[0].reset();
+            abp.notify.info(l('SavedSuccessfully'));
+            abp.event.trigger('supplier.created', data);
         }).fail(function (err) {
-            var title = 'Lỗi';
-            var message = 'Không thể thêm Supplier.';
+            var title = 'Error';
+            var message = 'Can not create Supplier.';
             if (err.responseJSON && err.responseJSON.error) {
                 var error = err.responseJSON.error;
                 if (error.message) title = error.message;
                 if (error.details) message = error.details;
             }
             abp.message.error(message, title);
+        }).always(function () {
+            abp.ui.clearBusy(_$modal);
         });
+    }
 
+    // =========================
+    // CLICK NÚT SAVE
+    // =========================
+    _$form.closest('div.modal-content').find('.save-button').on('click', function (e) {
+        e.preventDefault();
+        save();
     });
 
-})();
+    // =========================
+    // NHẤN ENTER ĐỂ SAVE
+    // =========================
+    _$form.find('input').on('keypress', function (e) {
+        if (e.which === 13) {
+            e.preventDefault();
+            save();
+        }
+    });
+
+    // =========================
+    // XÓA LỖI KHI USER NHẬP
+    // =========================
+    _$form.on('input', '#create-field-Code, #create-field-Name, #create-field-Email', function () {
+        var fieldName = this.id.replace('create-field-', '');
+        setFieldError(fieldName, '');
+    });
+
+    // =========================
+    // EVENT MODAL
+    // =========================
+    _$modal.on('shown.bs.modal', function () {
+        _$form.find('input[type=text]:first').focus();
+    }).on('hidden.bs.modal', function () {
+        clearErrors();
+        _$form[0].reset();
+    });
+
+})(jQuery);

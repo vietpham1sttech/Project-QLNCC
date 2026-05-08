@@ -22,13 +22,14 @@ namespace Project_QLNCC.Suppliers
         ISupplierAppService
     {
         private readonly SupplierValidator _validator;
+
         public SupplierAppService(IRepository<Supplier, int> repository, SupplierValidator validator)
             : base(repository)
         {
             _validator = validator;
         }
 
-        // Hàm tìm kiếm theo trường thông tin tên, email, số điện thoại
+        // Hàm tìm kiếm theo trường thông tin Name, email, số điện thoại
         protected override IQueryable<Supplier> CreateFilteredQuery(SearchSupplierInput input)
         {
             var query = base.CreateFilteredQuery(input);
@@ -53,7 +54,7 @@ namespace Project_QLNCC.Suppliers
             return query;
         }
 
-        // Hàm thêm mới Supplier
+        // Hàm Create Supplier
         public override async Task<SupplierDto> CreateAsync(CreateSupplierInput input)
         {
             await _validator.Validate(input.Code, input.Email, input.TaxCode);
